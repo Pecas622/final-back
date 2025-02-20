@@ -1,11 +1,12 @@
-import { Schema, model } from "mongoose"
+import { Schema, model } from "mongoose";
+import mongoosePaginate from 'mongoose-paginate-v2';
 
-const collections = 'users'
+const collections = 'users';
 
 const userSchema = new Schema({
     first_name: {
         type: String,
-        required: true 
+        required: true
     },
     last_name: String,
     email: {
@@ -13,6 +14,9 @@ const userSchema = new Schema({
         required: true,
         unique: true
     }
-})
+});
 
-export const modelUser = model('users', userSchema)
+// Aplica el plugin de paginación al esquema
+userSchema.plugin(mongoosePaginate);
+
+export const modelUser = model('users', userSchema);
