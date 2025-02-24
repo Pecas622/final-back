@@ -6,17 +6,17 @@ POST http://localhost:8080/api/users
 Content-Type: application/json
 
 {
-    "first_name": "Fede",
+    "first_name": "santi",
     "last_name": "santi",
     "email": "santi@gmail.com"
 }
 
-### Obtener un usuario por ID (cambia el ID por uno válido de tu base de datos)
+### Obtener un usuario por ID 
 GET http://localhost:8080/api/users/67b73ab3207cafde4ef8a02b
 
 
-### Actualizar un usuario (cambia el ID por uno válido)
-PUT http://localhost:8080/api/users/65f3a2c8b1a2d53e1c8b4567
+### Actualizar un usuario 
+PUT http://localhost:8080/api/users/67b73ab3207cafde4ef8a02b
 Content-Type: application/json
 
 {
@@ -25,5 +25,5 @@ Content-Type: application/json
     "email": "santi@gmail.com"
 }
 
-### Eliminar un usuario (cambia el ID por uno válido)
-DELETE http://localhost:8080/api/users/872d713a6844ca70017fb9fc
+### Eliminar un usuario 
+DELETE http://localhost:8080/api/users/67b73ab3207cafde4ef8a02b

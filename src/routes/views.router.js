@@ -20,7 +20,6 @@ router.get('/users', async (req, res) => {
         prevPage,
         nextPage
     } = await modelUser.paginate({}, { limit, page: numPage, lean: true })
-    // console.log(docs)
     res.render('users', {
         users: docs,
         hasNextPage,

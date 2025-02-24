@@ -3,7 +3,7 @@ import { cartsModel } from '../../models/carts.models.js';
 
 const router = Router();
 
-// Crear un nuevo carrito
+
 router.post('/', async (req, res) => {
     try {
         const { products } = req.body;
@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-// Obtener todos los carritos
+
 router.get('/', async (req, res) => {
     try {
         const carts = await cartsModel.find({});
@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Obtener un carrito por ID
+
 router.get('/:cid', async (req, res) => {
     try {
         const { cid } = req.params;

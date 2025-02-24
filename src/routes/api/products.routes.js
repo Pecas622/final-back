@@ -3,12 +3,12 @@ import { productModel } from '../../models/products.models.js';
 
 const router = Router();
 
-// Crear un nuevo producto (mate)
+
 router.post('/', async (req, res) => {
     try {
         const { title, category, price, stock } = req.body;
 
-        // Validaciones básicas
+
         if (!title || !category || !price || !stock) {
             return res.status(400).json({ error: 'Todos los campos son obligatorios' });
         }

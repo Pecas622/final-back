@@ -1,6 +1,5 @@
 import {Schema, model} from 'mongoose'
 
-// node 22.13.0 por defecto de manera nativa el uso de modulos sin type module
 
 const cartSchema = new Schema({
     products: {
