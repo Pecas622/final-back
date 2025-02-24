@@ -1,20 +1,48 @@
-import { Router } from 'express'
-import { cartsModel } from '../../models/carts.models.js'
+import { Router } from 'express';
+import { cartsModel } from '../../models/carts.models.js';
 
-const router = Router()
+const router = Router();
 
+// Crear un nuevo carrito
 router.post('/', async (req, res) => {
-    const result = await cartsModel.create({products: [{product: '678fafd5b3fbd94b2629bbdf'}, {product: '678fafe2b3fbd94b2629bbe5'}]})
-    res.send(result)
-})
-router.get('/', async (req, res) => {
-    const carts = await cartsModel.find({})
-    res.send(carts)
-})
-router.get('/:cid', async (req, res) => {
-    const { cid } = req.params
-    const cart = await cartsModel.findOne({_id: cid})
-    res.send(cart)
-})
+    try {
+        const { products } = req.body;
 
-export default router
+        if (!products || !Array.isArray(products)) {
+            return res.status(400).json({ error: 'El campo "products" es obligatorio y debe ser un array.' });
+        }
+
+        const newCart = await cartsModel.create({ products });
+        res.status(201).json(newCart);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al crear el carrito', details: error.message });
+    }
+});
+
+// Obtener todos los carritos
+router.get('/', async (req, res) => {
+    try {
+        const carts = await cartsModel.find({});
+        res.json(carts);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al obtener los carritos', details: error.message });
+    }
+});
+
+// Obtener un carrito por ID
+router.get('/:cid', async (req, res) => {
+    try {
+        const { cid } = req.params;
+        const cart = await cartsModel.findById(cid);
+
+        if (!cart) {
+            return res.status(404).json({ error: 'Carrito no encontrado' });
+        }
+
+        res.json(cart);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al obtener el carrito', details: error.message });
+    }
+});
+
+export default router;

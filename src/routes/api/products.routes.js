@@ -1,20 +1,40 @@
-import { Router } from 'express'
-import { productModel } from '../../models/products.models.js'
+import { Router } from 'express';
+import { productModel } from '../../models/products.models.js';
 
-const router = Router()
+const router = Router();
 
+// Crear un nuevo producto (mate)
 router.post('/', async (req, res) => {
-    const result = await productModel.create({
-        title: "product 1",
-        category: 'remeras',
-        price: 5000,
-        stock: 100
-    })
-    res.send(result)
-})
-router.get('/', async (req, res) => {
-    const products = await productModel.find({})
-    res.send(products)
-})
+    try {
+        const { title, category, price, stock } = req.body;
 
-export default router
+        // Validaciones básicas
+        if (!title || !category || !price || !stock) {
+            return res.status(400).json({ error: 'Todos los campos son obligatorios' });
+        }
+        if (typeof price !== 'number' || price <= 0) {
+            return res.status(400).json({ error: 'El precio debe ser un número positivo' });
+        }
+        if (typeof stock !== 'number' || stock < 0) {
+            return res.status(400).json({ error: 'El stock debe ser un número no negativo' });
+        }
+
+        const newProduct = await productModel.create({ title, category, price, stock });
+
+        res.status(201).json(newProduct);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al crear el producto', details: error.message });
+    }
+});
+
+// Obtener todos los productos (mates)
+router.get('/', async (req, res) => {
+    try {
+        const products = await productModel.find({});
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al obtener los productos', details: error.message });
+    }
+});
+
+export default router;

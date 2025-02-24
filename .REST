@@ -12,7 +12,8 @@ Content-Type: application/json
 }
 
 ### Obtener un usuario por ID (cambia el ID por uno válido de tu base de datos)
-GET http://localhost:8080/api/users/ede39d42432b3c40e75b13f9
+GET http://localhost:8080/api/users/67b73ab3207cafde4ef8a02b
+
 
 ### Actualizar un usuario (cambia el ID por uno válido)
 PUT http://localhost:8080/api/users/65f3a2c8b1a2d53e1c8b4567
